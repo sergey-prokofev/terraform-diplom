@@ -1,7 +1,7 @@
 # Создаем сервисный аккаунт для работы
 resource "yandex_iam_service_account" "diplom_sa" {
   name        = "diplom-service-account"
-  description = "Service account for diplom project"
+  description = "Service account for diplom project test !!!"
 }
 
 # Назначаем права сервисному аккаунту
