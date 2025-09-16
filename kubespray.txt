@@ -1,0 +1,33 @@
+git clone https://github.com/kubernetes-sigs/kubespray
+sudo apt install python3.12-venv
+
+python3.12 -m venv venv
+
+source venv/bin/activate
+cd kubespray
+
+pip install -U -r requirements.txt
+
+cp -rfp inventory/sample inventory/mycluster
+
+nano inventory/mycluster/inventory.ini #настройка нод
+
+ansible-playbook -i inventory/mycluster/inventory.ini cluster.yml -b -v
+
+
+mkdir -p $HOME/.kube 
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+
+[kube_control_plane]
+node1 ansible_host=89.169.164.48 ansible_user=user  # ip=10.0.0.1 etcd_member_name=etcd1
+
+[etcd:children]
+kube_control_plane
+
+[kube_node]
+node2 ansible_host=51.250.19.16 ansible_user=user  # ip=10.3.0.4
+node3 ansible_host=89.169.189.227 ansible_user=user  # ip=10.3.0.4
