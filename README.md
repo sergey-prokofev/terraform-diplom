@@ -1,3 +1,3 @@
 # terraform-diplom
-terraform diplom
+terraform diplom.
 
